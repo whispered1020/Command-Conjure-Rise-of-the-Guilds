@@ -1,0 +1,664 @@
+[
+  {
+    "id": 1001,
+    "name": "Mana Conduit",
+    "type": "Mana",
+    "slot": "Mana Zone",
+    "attribute": "Spell Card",
+    "effect": [
+      "Once per turn: You can place 1 '🅙 Job Energy' counter on 1 Character/Monster Card you control.",
+      "Once per turn: You can shuffle 1 '🅔 Energy Card' in your hand into your Deck, add 1 Character/Monster Card to your hand."
+    ],
+    "logic": {
+      "once_per_turn": true,
+      "actions": [
+        {
+          "add_counter": {
+            "counter_type": "Job Energy",
+            "amount": 1,
+            "target": "friendly_character_or_monster"
+          }
+        },
+        {
+          "shuffle_and_search": {
+            "shuffle_card": "Energy Card",
+            "zone": "hand",
+            "into": "deck",
+            "search_target": "Character/Monster Card",
+            "add_to": "hand"
+          }
+        }
+      ]
+    },
+    "archetype": "RPG Fantasy"
+  },
+  {
+    "id": 1002,
+    "name": "Energy Card",
+    "type": "Mana",
+    "slot": "Attachment",
+    "attribute": "Spell Card",
+    "effect": "You can activate this card from your hand and attach it to a Character Card or a Monster Card. It counts as 1 🅔 Energy Unit needed for some attacks to be available to use.",
+    "logic": {
+      "activation": {
+        "from_zone": "hand",
+        "target_zone": "character_or_monster_card",
+        "attachment_effect": {
+          "grants_energy_units": 1,
+          "energy_type": "🅔"
+        }
+      }
+    },
+    "archetype": "RPG Fantasy"
+  },
+  {
+    "id": 1003,
+    "name": "Shining Sanctuary",
+    "type": "Skill",
+    "slot": "Skill Zone",
+    "attribute": "Unique Card",
+    "effect": [
+      "At the start of the Match, activate this card and place 1 'Mana Conduit' on the Mana Zone.",
+      "During the End Phase, remove all Action Counters from your field.",
+      "More to come."
+    ],
+    "logic": {
+      "on_start_of_match": {
+        "activate_card": "Mana Conduit",
+        "zone": "Mana Zone"
+      },
+      "on_end_phase": {
+        "remove_counters": {
+          "counter_type": "Action",
+          "zone": "field",
+          "target": "all"
+        }
+      }
+    },
+    "archetype": "RPG Fantasy"
+  },
+  {
+    "id": 1004,
+    "name": "Bangaa Warrior Level 3",
+    "type": "Character Card",
+    "subtype": ["Melee", "Warrior"],
+    "slot": "Character/Monster Zone",
+    "race": "Bangaa",
+    "level": 3,
+    "HP": 210,
+    "Mana": 160,
+    "basic_attack": {
+      "name": "Basic Attack",
+      "description": "Basic physical strike",
+      "power": 40,
+      "damage_type": ["Physical"],
+      "logic": {
+        "target": "enemy",
+        "damage": { "power": 40, "type": "physical", "element": null }
+      }
+    },
+    "abilities": [
+      {
+        "name": "First Aid",
+        "type": "S-Ability",
+        "effect": "50% chance to remove all Status Ailments from this card and heal 20 HP.",
+        "cost": { "energy": 0, "job": 0, "mana": 0 },
+        "category": "Healing",
+        "logic": {
+          "chance": 0.5,
+          "actions": [
+            { "remove_status": "all" },
+            { "heal": { "amount": 20, "target": "self" } }
+          ]
+        }
+      },
+      {
+        "name": "Mindbreak",
+        "type": "Ability",
+        "effect": "Reduce the Magic Strength of 1 Enemy by 50%.",
+        "cost": { "energy": 1, "job": 0, "mana": 20 },
+        "category": "Debuff",
+        "logic": {
+          "target": "enemy",
+          "stat_mod": { "stat": "Magic Strength", "multiplier": 0.5 }
+        }
+      },
+      {
+        "name": "Greased Bolt",
+        "type": "Ability",
+        "effect": "This attack does not activate R-abilities.",
+        "power": 60,
+        "cost": { "energy": 1, "job": 0, "mana": 40 },
+        "damage_type": ["Physical", "low physical"],
+        "category": "Attack",
+        "logic": {
+          "target": "enemy",
+          "damage": { "power": 60, "type": "physical" },
+          "flags": { "ignore_r_abilities": true }
+        }
+      }
+    ],
+    "archetype": "RPG Fantasy"
+  },
+  {
+    "id": 1005,
+    "name": "Bangaa Warrior Level 4",
+    "type": "Character Card",
+    "subtype": ["Melee", "Warrior"],
+    "slot": "Character/Monster Zone",
+    "race": "Bangaa",
+    "level": 4,
+    "HP": 210,
+    "Mana": 160,
+    "basic_attack": {
+      "name": "Basic Attack",
+      "description": "Basic physical strike",
+      "power": 40,
+      "damage_type": ["Physical"],
+      "logic": {
+        "target": "enemy",
+        "damage": { "power": 40, "type": "physical", "element": null }
+      }
+    },
+    "abilities": [
+      {
+        "name": "First Aid",
+        "type": "S-Ability",
+        "effect": "50% chance to remove all Status Ailments from this card and heal 20 HP.",
+        "cost": { "energy": 0, "job": 0, "mana": 0 },
+        "category": "Healing",
+        "logic": {
+          "chance": 0.5,
+          "actions": [
+            { "remove_status": "all" },
+            { "heal": { "amount": 20, "target": "self" } }
+          ]
+        }
+      },
+      {
+        "name": "Powerbreak",
+        "type": "Ability",
+        "effect": "Reduce the Physical Strength of 1 Enemy by 50%.",
+        "cost": { "energy": 1, "job": 0, "mana": 20 },
+        "category": "Debuff",
+        "logic": {
+          "target": "enemy",
+          "stat_mod": { "stat": "Physical Strength", "multiplier": 0.5 }
+        }
+      },
+      {
+        "name": "Body Slam",
+        "type": "Ability",
+        "effect": "The user takes 65 Recoil Damage.",
+        "power": 130,
+        "cost": { "energy": 1, "job": 0, "mana": 40 },
+        "damage_type": ["Physical", "medium physical"],
+        "recoil_damage": 65,
+        "category": "Attack",
+        "logic": {
+          "target": "enemy",
+          "damage": { "power": 130, "type": "physical" },
+          "self_effect": { "recoil_damage": 65 }
+        }
+      },
+      {
+        "name": "Downsize",
+        "type": "Ability",
+        "effect": "Cuts the HP of 1 Enemy in 50%.",
+        "scaling_power": { "variable": "EnemyHP", "value": "EnemyHP/2" },
+        "cost": { "energy": 1, "job": 2, "mana": 80 },
+        "damage_type": ["Physical", "% HP"],
+        "category": "Attack",
+        "logic": {
+          "target": "enemy",
+          "damage": { "type": "percent_hp", "percentage": 50 }
+        }
+      }
+    ],
+    "archetype": "RPG Fantasy"
+  },
+  {
+    "id": 1006,
+    "name": "Moogle Black-Mage Level 3",
+    "type": "Character Card",
+    "subtype": ["Ranged", "Mage"],
+    "slot": "Character/Monster Zone",
+    "race": "Moogle",
+    "level": 3,
+    "HP": 85,
+    "Mana": 240,
+    "basic_attack": {
+      "name": "Basic Attack",
+      "description": "Basic physical strike",
+      "power": 15,
+      "damage_type": ["Physical"],
+      "logic": {
+        "target": "enemy",
+        "damage": { "power": 15, "type": "physical" }
+      }
+    },
+    "abilities": [
+      {
+        "name": "Return Magic",
+        "type": "R-Ability",
+        "effect": "This card reflects the same Magic Damage received to the attacker.",
+        "cost": { "energy": 0, "job": 0, "mana": 0 },
+        "category": "Buff",
+        "logic": {
+          "trigger": "when_hit_by_magic",
+          "actions": [
+            { "reflect_damage": { "type": "magic", "percentage": 100 } }
+          ]
+        }
+      },
+      {
+        "name": "Poison",
+        "type": "Magick",
+        "effect": "Inflicts Poison Status to 1 Enemy: 20 Damage each Standby Phase.",
+        "conditional_power": {
+          "condition": "Game Phase = Standby Phase",
+          "value": 20
+        },
+        "cost": { "energy": 0, "job": 0, "mana": 40 },
+        "damage_type": ["Magic", "Continuous"],
+        "category": "Status Ailment",
+        "logic": {
+          "target": "enemy",
+          "status_inflict": {
+            "name": "Poison",
+            "damage_per_turn": 20,
+            "trigger_phase": "Standby"
+          }
+        }
+      },
+      {
+        "name": "Fire",
+        "type": "Magick",
+        "effect": "Deals Heat Magic Damage to 1 Target.",
+        "power": 80,
+        "cost": { "energy": 0, "job": 0, "mana": 40 },
+        "damage_type": ["Magic", "low-average magic", "fire"],
+        "category": "Attack",
+        "logic": {
+          "target": "enemy",
+          "damage": { "power": 80, "type": "magic", "element": "fire" }
+        }
+      },
+      {
+        "name": "Blizzard2",
+        "type": "Magick",
+        "effect": "Deals Cold Magic Damage to 1 Target.",
+        "power": 130,
+        "cost": { "energy": 2, "job": 0, "mana": 80 },
+        "damage_type": ["Magic", "Average magic", "ice"],
+        "category": "Attack",
+        "logic": {
+          "target": "enemy",
+          "damage": { "power": 130, "type": "magic", "element": "ice" }
+        }
+      },
+      {
+        "name": "Thunder",
+        "type": "Magick",
+        "effect": "Deals Lightning Magic Damage to 1 Target.",
+        "power": 80,
+        "cost": { "energy": 0, "job": 0, "mana": 40 },
+        "damage_type": ["Magic", "low-average magic", "thunder"],
+        "category": "Attack",
+        "logic": {
+          "target": "enemy",
+          "damage": { "power": 80, "type": "magic", "element": "thunder" }
+        }
+      }
+    ],
+    "archetype": "RPG Fantasy"
+  },
+  {
+    "id": 1007,
+    "name": "Nu Mou Black-Mage Level 4",
+    "type": "Character Card",
+    "subtype": ["Ranged", "Mage"],
+    "slot": "Character/Monster Zone",
+    "race": "Nu Mou",
+    "level": 4,
+    "HP": 85,
+    "Mana": 240,
+    "basic_attack": {
+       "name": "Basic Attack",
+       "description": "Basic physical strike",
+       "power": 15,
+       "damage_type": ["Physical"]
+  },
+    "abilities": [
+    {
+      "name": "Return Magic",
+      "type": "R-Ability",
+      "effect": "This card reflects the same Magic Damage received to the attacker.",
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 0
+      },
+      "category": "Buff"
+    },
+    {
+      "name": "Sleep",
+      "type": "Magick",
+      "effect": "Inflicts Sleep Status to 1 Enemy.",
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 40
+      },
+      "category": "Status Ailment"
+    },
+    {
+      "name": "Fire2",
+      "type": "Magick",
+      "effect": "Deals Heat Magic Damage to 1 Target.",
+      "power": 130,
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 80
+      },
+      "damage_type": ["Magic", "Average magic", "fire"],
+      "category": "Attack"
+    },
+    {
+      "name": "Blizzard",
+      "type": "Magick",
+      "effect": "Deals Cold Magic Damage to 1 Target.",
+      "power": 80,
+"cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 40
+      },
+      "damage_type": ["Magic", "Low-average magic", "ice"],
+      "category": "Attack"
+    },
+    {
+      "name": "Thunder3",
+      "type": "Magick",
+      "effect": "Deals Lightning Magic Damage to 1 Target.",
+      "power": 185,
+      "cost": {
+        "energy": 2,
+        "job": 0,
+        "mana": 120
+      },
+      "damage_type": ["Magic", "Above-average magic", "thunder"],
+      "category": "Attack"
+    }
+  ],
+    "archetype": "RPG Fantasy"
+  },
+  {
+    "id": 1008,
+    "name": "Viera White-Mage Level 3",
+    "type": "Character Card",
+    "subtype": ["Ranged", "Mage"],
+    "slot": "Character/Monster Zone",
+    "race": "Viera",
+    "level": 3,
+    "HP": 80,
+    "Mana": 300,
+    "basic_attack": {
+       "name": "Basic Attack",
+       "description": "Basic physical strike",
+       "power": 15,
+       "damage_type": ["Physical"]
+  },
+    "abilities": [
+    {
+      "name": "Arcane Defense",
+      "type": "S-Ability",
+      "effect": "This card takes -50% Magic Damage.",
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 0
+      },
+      "category": "Buff"
+    },
+    {
+      "name": "Cure",
+      "type": "Magick",
+      "effect": "Heals 1 Ally by 40 HP.",
+      "power": 40,
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 20
+      },
+      "category": "Healing"
+    },
+    {
+      "name": "Mute",
+      "type": "Magick",
+      "effect": "Inflicts Silence Status to 1 Enemy.",
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 60
+      },
+      "category": "Status Ailment"
+    },
+    {
+      "name": "Protect",
+      "type": "Magick",
+      "effect": "Target 1 Ally, its Physical Defense is raised by 50% for 2 Turns.",
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 40
+      },
+      "category": "Buff"
+    },
+    {
+      "name": "Shell",
+      "type": "Magick",
+      "effect": "Target 1 Ally, its Magic Defense is raised by 50% for 2 Turns.",
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 40
+      },
+      "category": "Buff"
+    }
+  ],
+    "archetype": "RPG Fantasy"
+  },
+  {
+    "id": 1009,
+    "name": "Nu Mou White-Mage Level 4",
+    "type": "Character Card",
+    "subtype": ["Ranged", "Mage"],
+    "slot": "Character/Monster Zone",
+    "race": "Nu Mou",
+    "level": 4,
+    "HP": 80,
+    "Mana": 300,
+    "basic_attack": {
+       "name": "Basic Attack",
+       "description": "Basic physical strike",
+       "power": 15,
+       "damage_type": ["Physical"]
+  },
+    "abilities": [
+    {
+      "name": "Arcane Defense",
+      "type": "S-Ability",
+      "effect": "This card takes -50% Magic Damage.",
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 0
+      },
+      "category": "Buff"
+    },
+    {
+      "name": "Cure",
+      "type": "Magick",
+      "effect": "Heals 1 Ally by 40 HP.",
+      "power": 40,
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 20
+      },
+      "category": "Healing"
+    },
+    {
+      "name": "Cure2",
+      "type": "Magick",
+      "effect": "Heals 1 Ally by 80 HP.",
+      "power": 80,
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 60
+      },
+      "category": "Healing"
+    },
+    {
+      "name": "Esuna",
+      "type": "Magick",
+      "effect": "Heals Status Ailments from 1 Ally.",
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 40
+      },
+      "category": "Buff"
+    },
+    {
+      "name": "Protect",
+      "type": "Magick",
+      "effect": "Target 1 Ally, its Physical Defense is raised by 50% for 2 Turns.",
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 40
+      },
+      "category": "Buff"
+    }
+  ],
+    "archetype": "RPG Fantasy"
+  },
+  {
+    "id": 1010,
+    "name": "Viera Sniper Level 3",
+    "type": "Character Card",
+    "subtype": "Ranged",
+    "slot": "Character/Monster Zone",
+    "race": "Viera",
+    "level": 3,
+    "HP": 130,
+    "Mana": 190,
+    "basic_attack": {
+       "name": "Basic Attack",
+       "description": "Basic physical strike",
+       "power": 40,
+       "damage_type": ["Physical"]
+  },
+    "abilities": [
+    {
+      "name": "Aim: Armor",
+      "type": "S-Ability",
+      "effect": "50% chance to decrease the target's HP by 30 for 1 Turn; 25% chance to decrease by 60 HP; 25% chance to discard 1 card attached to the target, except an Energy Card.",
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 0
+      },
+      "category": "Debuff"
+    },
+    {
+      "name": "Conceal",
+      "type": "Ability",
+      "effect": "75% chance to get immunity to Basic Attacks for 1 Turn.",
+      "cost": {
+        "energy": 1,
+        "job": 1,
+        "mana": 70
+      },
+      "category": "Buff"
+    },
+    {
+      "name": "Beso Toxico",
+      "type": "Ability",
+      "effect": "50% chance to inflict Poison Status to the target.",
+      "power": 40,
+      "cost": {
+        "energy": 1,
+        "job": 0,
+        "mana": 30
+      },
+      "damage_type": ["Physical", "low physical"],
+      "category": ["Attack", "Status Ailment"]
+    }
+  ],
+    "archetype": "RPG Fantasy"
+  },
+  {
+    "id": 1011,
+    "name": "Viera Sniper Level 4",
+    "type": "Character Card",
+    "subtype": "Ranged",
+    "slot": "Character/Monster Zone",
+    "race": "Viera",
+    "level": 4,
+    "HP": 130,
+    "Mana": 190,
+    "basic_attack": {
+       "name": "Basic Attack",
+       "description": "Basic physical strike",
+       "power": 40,
+       "damage_type": ["Physical"]
+  },
+    "abilities": [
+    {
+      "name": "Aim: Armor",
+      "type": "S-Ability",
+      "effect": "50% chance to decrease the target's HP by 30 for 1 Turn; 25% chance to decrease by 60 HP; 25% chance to discard 1 card attached to the target, except an Energy Card.",
+      "cost": {
+        "energy": 0,
+        "job": 0,
+        "mana": 0
+      },
+      "category": "Debuff"
+    },
+    {
+      "name": "Conceal",
+      "type": "Ability",
+      "effect": "75% chance to get immunity to Basic Attacks for 1 Turn.",
+      "cost": {
+        "energy": 1,
+        "job": 1,
+        "mana": 70
+      },
+      "category": "Buff"
+    },
+    {
+      "name": "Doom Archer",
+      "type": "Ability",
+      "effect": "Damage increases to 80 if the User is damaged.",
+      "power": 50,
+      "conditional_power": {
+        "condition": "User is damaged",
+        "value": 80
+      },
+      "cost": {
+        "energy": 2,
+        "job": 0,
+        "mana": 50
+      },
+      "damage_type": ["Physical", "low physical"],
+      "category": "Attack"
+    }
+  ],
+    "archetype": "RPG Fantasy"
+  }
+]

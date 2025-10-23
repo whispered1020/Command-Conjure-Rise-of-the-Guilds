@@ -1,4 +1,4 @@
-# Command & Conjure: Rise of the Guilds — Battle Card Simulator
+## Command & Conjure: Rise of the Guilds — Battle Card Simulator
 
 A modular card battle simulator built in Python, featuring a JSON-based database and simple AI.
 
@@ -16,9 +16,9 @@ Lv5 cards represent elite roles and are played in a separate slot. Each player m
 
 ## Energy System
 The game features a layered energy mechanic with three distinct types:
-# Mana: Each card starts with a set amount of mana used for basic abilities.
-# Energy Cards: These are attached to specific cards on the field to unlock abilities.
-# Job Energy: A rare resource available on specific turns, required to activate powerful abilities
+Mana: Each card starts with a set amount of mana used for basic abilities.
+Energy Cards: These are attached to specific cards on the field to unlock abilities.
+Job Energy: A rare resource available on specific turns, required to activate powerful abilities
 
 ## Game Phases (In Development)
 The turn structure is expected to follow four main phases:
